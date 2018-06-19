@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    #redirect_to root_url and return unless activated?
+    redirect_to root_url and return unless activated?
     #debugger
   end
   def new
