@@ -13,6 +13,10 @@ module SessionsHelper
     !current_user.nil?
   end
 
+  def activated?
+    current_user.activated == true
+  end
+
   #Logs out the current user.
   def log_out
     session.delete(:user_id)
@@ -31,7 +35,7 @@ module SessionsHelper
       @current_user ||= User.find_by(id: user_id)
     elsif (user_id = cookies.signed[:user_id])
       user= User.find_by(id: user_id)
-      if user && user.authenticated?(cookies[:remember_token])
+      if user && user.authenticated?(:remember, cookies[:remember_token])
         log_in user
         @current_user = user
       end
